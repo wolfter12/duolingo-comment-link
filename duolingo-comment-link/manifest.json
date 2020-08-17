@@ -4,19 +4,19 @@
   "version": "1.0.0",
   "description": "Provides ability to get a direct link to the comment",
   "permissions": [
-    "webNavigation",
-    "tabs"
+    "webNavigation"
   ],
   "background": {
     "scripts": [
       "background.js"
-    ]
+    ],
+    "persistent": false
   },
   "content_scripts": [
     {
       "matches": [
-        "http://forum.duolingo.com/comment/*",
-        "https://forum.duolingo.com/comment/*"
+        "http://forum.duolingo.com/*",
+        "https://forum.duolingo.com/*"
       ],
       "css": [
         "style.css"
