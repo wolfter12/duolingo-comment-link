@@ -108,8 +108,9 @@ function update() {
   });
 }
 
-chrome.runtime.onMessage.addListener(request => {
+chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "update") update();
+  return true;
 });
 
 update();
