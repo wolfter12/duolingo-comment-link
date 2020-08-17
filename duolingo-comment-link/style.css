@@ -1,0 +1,17 @@
+/* .uMmEI>div {
+  background-color: pink;
+} */
+
+div.comment-link {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+img.link-icon {
+  height: 1em;
+  width: 1em;
+}
