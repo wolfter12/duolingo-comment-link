@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/wolfter12/duolingo-comment-link/issues"
   },
-  "homepage": "https://github.com/wolfter12/duolingo-comment-link#readme"
+  "homepage": "https://github.com/wolfter12/duolingo-comment-link#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.7.0"
+  }
 }
