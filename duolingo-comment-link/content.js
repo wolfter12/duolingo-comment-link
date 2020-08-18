@@ -29,7 +29,8 @@ function waitForElement(selector) {
         mutation.addedNodes.forEach((node) => {
           if (node.matches && node.matches(selector)) {
             return complete(node);
-          } else if (node.firstElementChild) {
+          }
+          if (node.firstElementChild) {
             const target = node.querySelector(selector);
             if (target) {
               return complete(target);
@@ -90,7 +91,7 @@ function createLink(target) {
   const baseUrl = currentUrl.split("?")[0];
   const parent = target.closest(COMMENT_SELECTOR);
   const children = [...parent.children];
-  let commentID = children.find(element => element.id).id;
+  const commentID = children.find((element) => element.id).id;
   let commentLink;
 
   if (commentID) {
@@ -106,7 +107,6 @@ function commentLinkHandler(event) {
     navigator.clipboard.writeText(link);
   }
 }
-
 
 function update() {
   observer.disconnect();
