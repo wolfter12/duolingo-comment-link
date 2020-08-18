@@ -2,6 +2,8 @@
 
 const COMMENTS_PARENT_SELECTOR = "div.L3O-V";
 const COMMENT_SELECTOR = ".uMmEI";
+const COMMENT_CLASS = "uMmEI";
+
 const observer = new MutationObserver(onMutation);
 const observerOptions = {
   childList: true,
@@ -17,19 +19,20 @@ function waitForElement(selector) {
       return;
     }
 
+    function complete(element) {
+      observer.disconnect();
+      resolve(element);
+    }
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
           if (node.matches && node.matches(selector)) {
-            observer.disconnect();
-            resolve(node);
-            return;
+            return complete(node);
           } else if (node.firstElementChild) {
             const target = node.querySelector(selector);
             if (target) {
-              observer.disconnect();
-              resolve(target);
-              return;
+              return complete(target);
             }
           }
         });
@@ -41,33 +44,42 @@ function waitForElement(selector) {
 }
 
 function addLink(element) {
+  if (!element) return;
+
   const $link = document.createElement("div");
-  $link.classList.add("comment-link");
+  $link.className = "comment-link";
+
   const imgSrc = chrome.extension.getURL("./icons/link_1_128.png");
   const icon = `<img alt="&#x1F517;" class="link-icon" src=${imgSrc}>`;
   $link.innerHTML = icon;
-  $link.addEventListener
+
   element.insertAdjacentElement("afterBegin", $link);
   element.dataset.commentLinked = true;
 }
 
-function render(element) {
-  const targetBlocks = [...element.querySelectorAll(COMMENT_SELECTOR)];
-  if (targetBlocks.length) {
-    const filtred = targetBlocks.filter(checkCommentLinkDoesNotExist);
-    if (filtred.length) {
-      filtred.forEach(addLink);
+function notContainsCommentLink(element) {
+  return !element.dataset.commentLinked;
+}
+
+function findComments(element) {
+  if (!element) return [];
+  const comments = [...element.querySelectorAll(COMMENT_SELECTOR)];
+  if (comments.length) {
+    const commentsWithoutLink = comments.filter(notContainsCommentLink);
+    if (commentsWithoutLink.length) {
+      return commentsWithoutLink;
     }
   }
+  return [];
 }
 
 function onMutation(mutations) {
   mutations.forEach((mutation) => {
     mutation.addedNodes.forEach((node) => {
-      if (node.tagName === "DIV" && node.classList.contains("uMmEI") && !node.dataset.commentLinked) {
+      if (node.tagName === "DIV" && node.classList.contains(COMMENT_CLASS) && notContainsCommentLink(node)) {
         addLink(node);
       } else if (node.firstElementChild) {
-        render(node);
+        findComments(node).forEach(addLink);
       }
     });
   });
@@ -95,16 +107,13 @@ function commentLinkHandler(event) {
   }
 }
 
-function checkCommentLinkDoesNotExist(element) {
-  return !element.dataset.commentLinked;
-}
 
 function update() {
   observer.disconnect();
   document.removeEventListener("click", commentLinkHandler);
 
   waitForElement(COMMENTS_PARENT_SELECTOR).then((element) => {
-    render(document);
+    findComments(document).forEach(addLink);
     observer.observe(element, observerOptions);
     document.addEventListener("click", commentLinkHandler);
   });
