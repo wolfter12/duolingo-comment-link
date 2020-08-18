@@ -1,5 +1,7 @@
 "use strict";
 
+const COMMENTS_PARENT_SELECTOR = "div.L3O-V";
+const COMMENT_SELECTOR = ".uMmEI";
 const observer = new MutationObserver(onMutation);
 const observerOptions = {
   childList: true,
@@ -50,7 +52,7 @@ function addLink(element) {
 }
 
 function render(element) {
-  const targetBlocks = [...element.querySelectorAll(".uMmEI")];
+  const targetBlocks = [...element.querySelectorAll(COMMENT_SELECTOR)];
   if (targetBlocks.length) {
     const filtred = targetBlocks.filter(checkCommentLinkDoesNotExist);
     if (filtred.length) {
@@ -74,7 +76,7 @@ function onMutation(mutations) {
 function createLink(target) {
   const currentUrl = document.URL;
   const baseUrl = currentUrl.split("?")[0];
-  const parent = target.closest(".uMmEI");
+  const parent = target.closest(COMMENT_SELECTOR);
   const children = [...parent.children];
   let commentID = children.find(element => element.id).id;
   let commentLink;
@@ -101,7 +103,7 @@ function update() {
   observer.disconnect();
   document.removeEventListener("click", commentLinkHandler);
 
-  waitForElement("div.L3O-V ").then((element) => {
+  waitForElement(COMMENTS_PARENT_SELECTOR).then((element) => {
     render(document);
     observer.observe(element, observerOptions);
     document.addEventListener("click", commentLinkHandler);
