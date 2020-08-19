@@ -1,5 +1,21 @@
 "use strict";
 
+let animation = true;
+let iconName = "classic";
+let iconSize = "20";
+
+chrome.storage.local.get(["animation", "iconName", "iconSize"], (data) => {
+  animation = data.animation;
+  iconName = data.iconName;
+  iconSize = data.iconSize;
+});
+
+const ICONS_SRC = {
+  "horizontal": "./icons/link_2_128.png",
+  "classic": "./icons/link_1_128.png",
+  "copy": "./icons/copy_128.png"
+};
+
 const COMMENTS_PARENT_SELECTOR = "div.L3O-V";
 const COMMENT_SELECTOR = ".uMmEI";
 const COMMENT_CLASS = "uMmEI";
@@ -49,8 +65,9 @@ function addLink(element) {
 
   const $link = document.createElement("div");
   $link.className = "comment-link";
+  $link.style.fontSize = `${iconSize}px`;
 
-  const imgSrc = chrome.extension.getURL("./icons/link_1_128.png");
+  const imgSrc = chrome.extension.getURL(ICONS_SRC[iconName]);
   const icon = `<img alt="&#x1F517;" class="link-icon" src=${imgSrc}>`;
   $link.innerHTML = icon;
 
@@ -101,10 +118,23 @@ function createLink(target) {
   return commentLink || baseUrl;
 }
 
+function highlight(element) {
+  if (element.classList.contains("highlight-comment")) return;
+  element.classList.add("highlight-comment");
+  setTimeout(() => {
+    element.classList.remove("highlight-comment");
+  }, 1000);
+}
+
 function commentLinkHandler(event) {
   if (event.target.classList.contains("link-icon")) {
     const link = createLink(event.target);
+    const comment = event.target.closest(COMMENT_SELECTOR);
+    const commentWithoutMargin = [...comment.children].find(element => element.id);
     navigator.clipboard.writeText(link);
+    if (animation) {
+      highlight(commentWithoutMargin || comment);
+    }
   }
 }
 
