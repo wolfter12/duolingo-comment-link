@@ -1,7 +1,3 @@
-/* .uMmEI>div {
-  background-color: pink;
-} */
-
 div.comment-link {
   float: right;
   margin-top: 10px;
@@ -14,4 +10,17 @@ div.comment-link {
 img.link-icon {
   height: 1em;
   width: 1em;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: rgba(0, 255, 0, 0.25);
+  }
+  /* 100% {
+    background-color: grey;
+  } */
+}
+
+.highlight-comment {
+  animation: highlight 1000ms ease-out;
 }
