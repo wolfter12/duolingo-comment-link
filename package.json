@@ -4,7 +4,8 @@
   "description": "Provides ability to get a direct link to the comment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --config dev.config.js",
+    "build": "webpack --config prod.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,27 @@
     "url": "https://github.com/wolfter12/duolingo-comment-link/issues"
   },
   "homepage": "https://github.com/wolfter12/duolingo-comment-link#readme",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^4.5.2"
+  },
   "devDependencies": {
-    "eslint": "^7.7.0"
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.0.3",
+    "css-loader": "^4.2.2",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mini-css-extract-plugin": "^0.10.1",
+    "node-sass": "^4.14.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "path": "^0.12.7",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
