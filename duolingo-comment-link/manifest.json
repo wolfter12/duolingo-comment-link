@@ -50,6 +50,7 @@
     "512": "icons/icon_512.png"
   },
   "web_accessible_resources": [
+    "popup.css",
     "icons/link_1_128.png",
     "icons/link_2_128.png",
     "icons/copy_128.png"

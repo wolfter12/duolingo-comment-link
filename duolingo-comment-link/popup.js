@@ -1,18 +1,1 @@
-const animation = document.querySelector("#animation");
-const iconName = document.querySelector("#iconName");
-const iconSize = document.querySelector("#icon-size");
-const saveButton = document.querySelector("#save-settings");
-
-chrome.storage.local.get(["animation", "iconName", "iconSize"], (data) => {
-  animation.checked = data.animation;
-  iconName.value = data.iconName;
-  iconSize.value = data.iconSize;
-});
-
-saveButton.addEventListener("click", () => {
-  chrome.storage.local.set({
-    animation: animation.checked,
-    iconName: iconName.value,
-    iconSize: iconSize.value
-  });
-});
+!function(e){var n={};function t(o){if(n[o])return n[o].exports;var i=n[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,t),i.l=!0,i.exports}t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:o})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(t.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var i in e)t.d(o,i,function(n){return e[n]}.bind(null,i));return o},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="duolingo-comment-link/",t(t.s=3)}([function(e,n,t){"use strict";t.d(n,"a",(function(){return o})),t.d(n,"c",(function(){return i})),t.d(n,"b",(function(){return c})),t.d(n,"e",(function(){return r})),t.d(n,"f",(function(){return u})),t.d(n,"g",(function(){return a})),t.d(n,"d",(function(){return l}));var o="div.L3O-V",i=".uMmEI",c="uMmEI",r={horizontal:"./icons/link_2_128.png",classic:"./icons/link_1_128.png",copy:"./icons/copy_128.png"},u={small:"20",medium:"30",large:"40"},a={childList:!0,subtree:!0},l={animation:!0,iconName:"classic",iconSize:"20"}},,,function(e,n,t){t(4),e.exports=t(5)},function(e,n,t){"use strict";t.r(n);var o=t(0),i=document.querySelector("#animation"),c=document.querySelector("#icon-name"),r=document.querySelector("#icon-size"),u=document.querySelector("#icon"),a=document.querySelector("#save-settings");function l(){u.src=o.e[c.value],u.style.width="".concat(o.f[r.value],"px"),u.style.height="".concat(o.f[r.value],"px")}chrome.storage.local.get(["animation","iconName","iconSize"],e=>{i.checked=e.animation,c.value=e.iconName,r.value=e.iconSize,u.src=o.e[e.iconName],u.style.width="".concat(o.f[e.iconSize],"px"),u.style.height="".concat(o.f[e.iconSize],"px")}),u.addEventListener("click",()=>{var e;e=document.body,i.checked&&(e.classList.contains("highlight-block")||(e.classList.add("highlight-block"),setTimeout(()=>{e.classList.remove("highlight-block")},1e3)))}),c.addEventListener("change",l),r.addEventListener("change",l),a.addEventListener("click",()=>{chrome.storage.local.set({animation:i.checked,iconName:c.value,iconSize:r.value})})},function(e,n,t){}]);
