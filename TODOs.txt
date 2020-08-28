@@ -1,1 +1,3 @@
 //TODO: add checking for waitForElement("div.L3O-V ") after frame update
+//TODO: send from background.js onStorageChange message to content.js and popup.js
+//TODO: add css highlight overlay to whole block (images, icons, text issue)
