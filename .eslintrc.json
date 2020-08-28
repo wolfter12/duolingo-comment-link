@@ -1,14 +1,29 @@
 {
     "env": {
         "browser": true,
-        "es6": true,
+        "es2020": true,
         "webextensions": true
     },
     "extends": [
-        "eslint:recommended"
+        "airbnb-base"
     ],
     "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 11,
+        "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+        "no-console": "off",
+        "quotes": [
+            2,
+            "double",
+            "avoid-escape"
+        ],
+        "comma-dangle": 1,
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ]
+    }
 }
